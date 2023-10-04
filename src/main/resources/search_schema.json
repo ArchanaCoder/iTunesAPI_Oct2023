@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "resultCount": {
+      "type": "integer"
+    },
+    "results": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "wrapperType": {
+              "type": "string"
+            },
+            "kind": {
+              "type": "string"
+            },
+            "artistId": {
+              "type": "integer"
+            },
+            "collectionId": {
+              "type": "integer"
+            },
+            "trackId": {
+              "type": "integer"
+            },
+            "artistName": {
+              "type": "string"
+            },
+            "collectionName": {
+              "type": "string"
+            },
+            "trackName": {
+              "type": "string"
+            },
+            "collectionCensoredName": {
+              "type": "string"
+            },
+            "trackCensoredName": {
+              "type": "string"
+            },
+            "artistViewUrl": {
+              "type": "string"
+            },
+            "collectionViewUrl": {
+              "type": "string"
+            },
+            "trackViewUrl": {
+              "type": "string"
+            },
+            "previewUrl": {
+              "type": "string"
+            },
+            "artworkUrl60": {
+              "type": "string"
+            },
+            "artworkUrl100": {
+              "type": "string"
+            },
+            "collectionPrice": {
+              "type": "number"
+            },
+            "trackPrice": {
+              "type": "number"
+            },
+            "collectionExplicitness": {
+              "type": "string"
+            },
+            "trackExplicitness": {
+              "type": "string"
+            },
+            "discCount": {
+              "type": "integer"
+            },
+            "discNumber": {
+              "type": "integer"
+            },
+            "trackCount": {
+              "type": "integer"
+            },
+            "trackNumber": {
+              "type": "integer"
+            },
+            "trackTimeMillis": {
+              "type": "integer"
+            },
+            "country": {
+              "type": "string"
+            },
+            "currency": {
+              "type": "string"
+            },
+            "primaryGenreName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "wrapperType",
+            "kind",
+            "artistName",
+            "collectionName",
+            "trackName",
+            "collectionCensoredName",
+            "trackCensoredName",
+            "artistViewUrl",
+            "collectionViewUrl",
+            "trackViewUrl",
+            "previewUrl",
+            "collectionExplicitness",
+            "trackExplicitness"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "resultCount",
+    "results"
+  ]
+}
