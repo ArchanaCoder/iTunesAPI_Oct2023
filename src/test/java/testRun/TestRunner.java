@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         plugin = { "pretty", "html:target/cucumber-reports.html" },
         features= {"./src/test/java/features/apisearch.feature"},
         glue= "steps",
-        tags= "@test2",
+        tags= "@test",
         monochrome=true, dryRun=false
 )
 

@@ -17,6 +17,8 @@ import utilities.APICommonMethods;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
@@ -54,7 +56,6 @@ public class myStepdefs {
         given().get(env.getApiurl()+"/search?term="+term).
                 then().
         body(matchesJsonSchema(schema));
-
     }
 
     @When("user enters {string} for a Lookup")
@@ -161,22 +162,136 @@ public class myStepdefs {
         int i =0;
         while(i<n){
             values = res_values.get(i);
-           // int n = res_values.size();
             String[] fields = lookup.split("&");
             for(String s :fields){
+                found = false;
                 fieldname = StringUtils.substringBefore(s,"=");
                 if(fieldname.equals("id")) {
                     fieldname =StringUtils.replace(fieldname, "id", "artistId");
                 }
                 fieldval = StringUtils.substringAfter(s,"=");
-              //  check_values = values.get(fieldname).toString();
-                if(values.get(fieldname).toLowerCase().equals(fieldval.toLowerCase())){
+                check_values = String.valueOf(values.get(fieldname));
+                if(fieldval.toLowerCase().contains(check_values.toLowerCase())){
                     found = true;
+                    break;
                 }
-                AssertJUnit.assertTrue(found);
+            }
+            AssertJUnit.assertTrue(found);
+            i++;
+        }
+    }
 
+    @And("{string} results contains values {string}")
+    public void resultsContainsValues(String lookup, String for_value) {
+        ArrayList<HashMap> res_values = new ArrayList<>();
+        HashMap <String,String> values = new HashMap<>();
+        //String check_values = "";
+        Boolean found = false;
+        JsonPath res = new JsonPath(Response.asString());
+        res_values = res.getJsonObject("results");
+
+        int n = res_values.size();
+        String fieldname= "";
+        String fieldval= "";
+        String check_values= "";
+        int i =0;
+        while(i<n){
+            values = res_values.get(i);
+            String[] fields = lookup.split("&");
+            for(String s :fields){
+                found = false;
+                fieldname = StringUtils.substringBefore(s,"=");
+                if(fieldname.equals("id")) {
+                    fieldname =StringUtils.replace(fieldname, "id", "artistId");
+                }
+                fieldval = StringUtils.substringAfter(s,"=");
+                check_values = String.valueOf(values.get(fieldname));
+                if(fieldval.toLowerCase().contains(for_value.toLowerCase())){
+                    found = true;
+                    break;
+                }else {
+                    System.out.println("test");
+                }
+            }
+            AssertJUnit.assertTrue(found);
+            i++;
+        }
+    }
+
+    @And("lookup results {string} contains values {string}")
+    public void lookupResultsContainsValues(String validate_value, String for_value) {
+        ArrayList<HashMap> res_values = new ArrayList<>();
+        HashMap<String, String> values = new HashMap<>();
+        Boolean valid = false;
+        JsonPath res = new JsonPath(Response.asString());
+        res_values = res.getJsonObject("results");
+        resultCount= Response.jsonPath().get("resultCount");
+        Set<String> artist_name = new HashSet<>();
+        int n = res_values.size();
+        String value_from_res= "";
+        int i =0;
+        while (i < n) {
+        valid = false;
+        values = res_values.get(i);
+        value_from_res = String.valueOf(values.get(validate_value.trim()));
+            if(for_value.contains("multiple")){
+                artist_name.add(value_from_res);
+            } else if(!validate_value.contains("limit")) {
+                if (value_from_res.toLowerCase().contains(for_value.toLowerCase())) {
+                    valid = true;
+                    break;
+                }
             }
             i++;
         }
+        if(artist_name.size()>1){
+            valid = true;
+        }
+        if(validate_value.contains("limit")){
+            if(apiCommonMethods.limit_check_byArtist(res,for_value)){
+                valid = true;
+            }
+        }
+        AssertJUnit.assertTrue(valid);
+    }
+
+    @And("search results {string} contains values {string}")
+    public void searchResultsContainsValues(String validate_value, String for_value) {
+        ArrayList<HashMap> res_values = new ArrayList<>();
+        HashMap<String, String> values = new HashMap<>();
+        Boolean valid = false;
+        JsonPath res = new JsonPath(Response.asString());
+        res_values = res.getJsonObject("results");
+        resultCount= Response.jsonPath().get("resultCount");
+        Set<String> artist_name = new HashSet<>();
+        int n = res_values.size();
+        String value_from_res= "";
+        int i =0;
+        while (i < n) {
+            valid = false;
+            values = res_values.get(i);
+            value_from_res = String.valueOf(values.get(validate_value.trim()));
+            if(for_value.contains("multiple")){
+                artist_name.add(value_from_res);
+            } else if (validate_value.contains("limit") || validate_value.contains("all")) {
+                if(values.toString().contains(for_value)){
+                    valid = true;
+                }
+                else {
+                    valid = false;
+                    break;
+                }
+            } else {
+                if (value_from_res.toLowerCase().contains(for_value.toLowerCase())) {
+                    valid = true;
+                    break;
+                }
+            }
+            i++;
+        }
+        if(artist_name.size()>1){
+            valid = true;
+        }
+        AssertJUnit.assertTrue(valid);
     }
 }

@@ -1,0 +1,61 @@
+TestScenarios to be tested:
+
+iTunes Search & LookupAPI:
+•   Validate API is with secure https to access
+
+iTunes Search API: Validate response and limit
+•   Validate SearchAPI with API parameter term
+    and verify all search results contains 'Jack Johnson'
+•   Validate SearchAPI with multiple API parameters term, limit
+    and verify search results limit with 25 with all response contains 'Jack Johnson'
+•   Validate SearchAPI with multiple API parameters term, entity
+    and verify 'kind' is 'music-video'
+•   Validate SearchAPI with multiple API parameters term, country
+    and verify 'country' contains 'CA'
+•   Validate SearchAPI with multiple API parameters term, country, entity, software
+    and verify 'wrapperType' is 'software'
+
+iTunes Search API: Schema validation
+•   Validate mandatory fields of SearchAPI with API parameter term
+•   Validate mandatory fields of SearchAPI with multiple API parameters term, limit
+•   Validate mandatory fields of SearchAPI with multiple API parameters term, entity
+•   Validate mandatory fields of SearchAPI with multiple API parameters term, country
+•   Validate mandatory fields of SearchAPI with multiple API parameters term, country, software
+
+iTunes Search API: ResponseTime validation
+•   Validate response time is less than 2seconds of SearchAPI with API parameter term
+•   Validate response time is less than 2seconds of SearchAPI with multiple API parameters term, limit
+•   Validate response time is less than 2seconds of SearchAPI with multiple API parameters term, entity
+•   Validate response time is less than 2seconds of SearchAPI with multiple API parameters term, country
+•   Validate response time is less than 2seconds of SearchAPI with multiple API parameters term, country, entity
+•   Validate response time is less than 2seconds of SearchAPI with multiple API parameters term, country, entity, media
+
+iTunes Lookup API: response and field validations
+•   Validate LookupAPI for iTunes artist ID
+•   Validate LookupAPI for iTunes ID
+•   Validate LookupAPI with AMG artist id
+•   Validate LookupAPI for multiple artists with multiple AMG artist ids
+•   Validate all albums returned by Lookup API with id, entity
+•   Validate Top 5 albums ret``urned by LookupAPI for each artist with id, entity
+•   Validate 5 most recent songs returned by LookupAPI for each artist with Artistid, limit, entity, sort
+•   Validate album or video returned by LookupAPI with UPC
+•   Validate album returned by LookupAPI with UPC including tracks on that album
+•   Validate album returned by LookupAPI with AMG Album ID
+•   Validate Movie returned by LookupAPI with videoed
+•   Validate book returned by LookupAPI with isbn
+
+iTunes Lookup API: ResponseTime
+•   Validate response time is less than 2seconds of LookupAPI for iTunes artist ID
+•   Validate response time is less than 2seconds of LookupAPI for iTunes ID
+•   Validate response time is less than 2seconds of LookupAPI with AMG artist id
+•   Validate response time is less than 2seconds of LookupAPI for multiple artists with multiple AMG artist ids
+•   Validate response time is less than 2seconds of all albums returned by Lookup API with id, entity
+•   Validate response time is less than 2seconds of Top 5 albums ret``urned by LookupAPI for each artist with id, entity
+•   Validate response time is less than 2seconds of 5 most recent songs returned by LookupAPI for each artist with Artistid, limit, entity, sort
+•   Validate response time is less than 2seconds of album or video returned by LookupAPI with UPC
+•   Validate response time is less than 2seconds of album returned by LookupAPI with UPC including tracks on that album
+•   Validate response time is less than 2seconds of album returned by LookupAPI with AMG Album ID
+•   Validate response time is less than 2seconds of Movie returned by LookupAPI with videoed
+•   Validate response time is less than 2seconds of book returned by LookupAPI with isbn
+
+Note: All Validation (asserts) for each TestScenarios in automation
