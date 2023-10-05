@@ -1,6 +1,5 @@
 package utilities;
 
-import configs.TestEnvProperties;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 
@@ -10,8 +9,6 @@ import java.util.HashMap;
 import static io.restassured.RestAssured.given;
 
 public class APICommonMethods {
-
-    TestEnvProperties envProperties = new TestEnvProperties();
 
     public int APIStatusCode (String url){
         io.restassured.response.Response status = given().contentType(ContentType.JSON).get(url);
@@ -38,7 +35,6 @@ public class APICommonMethods {
         HashMap<String, String> values = new HashMap<>();
         HashMap<String, Integer> limit_check = new HashMap<>();
         Boolean valid = false;
-        //JsonPath response = new JsonPath(res.toString());
         res_values = res.getJsonObject("results");
         int n = res_values.size();
         int i =0;
