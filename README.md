@@ -12,6 +12,4 @@ Steps to perform automation test execution:
    Run the command "mvn test"
 
 Reports: 
-Detailed Report ->'emailable-report.html' will be generated in the target/surefire-reports/Surefire Suite folder
-Summary Report -> 'Surefire test.html' will be generated in the target/surefire-reports folder
-with current date/timestamp
+Detailed Report ->'cucumber-reports.html' will be generated in the target folder
